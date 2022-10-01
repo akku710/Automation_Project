@@ -33,3 +33,22 @@ mv *.tar /tmp/
 aws s3 \
 cp /tmp/${name}-httpd-logs-${timestamp}.tar \
 s3://${s3_bucket}/Aakash-httpd-logs-${timestamp}.tar
+
+#Task 3
+docroot="/var/www/html"
+# Check if inventory file exists
+if [[ ! -f ${docroot}/inventory.html ]]; then
+#statements
+echo -e 'Log Type\t-\tTime Created\t-\tType\t-\tSize' > ${docroot}/inventory.html
+fi
+# Inserting Logs into the file
+if [[ -f ${docroot}/inventory.html ]]; then
+#statements
+size=$(du -h /tmp/${name}-httpd-logs-${timestamp}.tar | awk '{print $1}')
+echo -e "httpd-logs\t-\t${timestamp}\t-\ttar\t-\t${size}" >> ${docroot}/inventory.html
+fi
+#cron job
+if [[ ! -f /etc/cron.d/automation ]]; then
+#statements
+echo "* 23 * * * root cd /root/Automation_Project/automation.sh" >>  /etc/cron.d/automation
+fi
