@@ -50,5 +50,5 @@ fi
 #cron job
 if [[ ! -f /etc/cron.d/automation ]]; then
 #statements
-echo "* * * * * root cd /root/Automation_Project/automation.sh" >>  /etc/cron.d/automation
+echo "* 23 * * * root cd /root/Automation_Project/automation.sh" >>  /etc/cron.d/automation
 fi
